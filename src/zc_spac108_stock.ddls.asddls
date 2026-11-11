@@ -5,12 +5,21 @@ define root view entity ZC_SPAC108_STOCK
   provider contract transactional_query
   as projection on ZR_SPAC108_STOCK
 {
-  @UI.lineItem: [{ position: 10 }]
   key WarehouseId,
-
-  @UI.lineItem: [{ position: 20 }]
   key ProductId,
 
+  @UI.lineItem: [{ position: 10 }]
+  _Warehouse.WarehouseName as WarehouseName,
+
+  @UI.lineItem: [{ position: 20 }]
+  _Warehouse.City          as City,
+
   @UI.lineItem: [{ position: 30 }]
-  Amount
+  _Product.ProductName     as ProductName,
+
+  @UI.lineItem: [{ position: 40 }]
+  Amount,
+
+  _Product,
+  _Warehouse
 }
