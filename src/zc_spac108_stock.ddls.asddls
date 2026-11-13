@@ -9,10 +9,17 @@ define root view entity ZC_SPAC108_STOCK
   provider contract transactional_query
   as projection on ZR_SPAC108_STOCK
 {
+  @UI.facet: [{
+    id: 'General', purpose: #STANDARD,
+    type: #IDENTIFICATION_REFERENCE, label: 'Stock', position: 10
+  }]
+  
   @EndUserText.label: 'Warehouse ID'
+  @UI.identification: [{ position: 10 }]
   key WarehouseId,
 
   @EndUserText.label: 'Product ID'
+  @UI.identification: [{ position: 20 }]
   key ProductId,
 
   @EndUserText.label: 'Warehouse'
@@ -29,7 +36,14 @@ define root view entity ZC_SPAC108_STOCK
 
   @EndUserText.label: 'Amount in stock'
   @UI.lineItem: [{ position: 40 }]
+  @UI.identification: [{ position: 30 }]
   Amount,
+  
+  LocalCreatedBy,
+  LocalCreatedAt,
+  LocalLastChangedBy,
+  LocalLastChangedAt,
+  LastChangedAt,
 
   _Product,
   _Warehouse

@@ -12,6 +12,22 @@ define root view entity ZR_SPAC108_STOCK
   key warehouse_id as WarehouseId,
   key product_id   as ProductId,
       amount       as Amount,
+      
+      
+      @Semantics.user.createdBy: true
+      local_created_by as LocalCreatedBy,
+      
+      @Semantics.systemDateTime.createdAt: true
+      local_created_at as LocalCreatedAt,
+      
+      @Semantics.user.localInstanceLastChangedBy: true
+      local_last_change_by as LocalLastChangedBy,
+      
+      @Semantics.systemDateTime.localInstanceLastChangedAt: true
+      local_last_change_at as LocalLastChangedAt,
+      
+      @Semantics.systemDateTime.lastChangedAt: true
+      last_change_at as LastChangedAt,
 
       // Associations gøres tilgængelige for projektionen
       _Product,
