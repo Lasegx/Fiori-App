@@ -8,7 +8,9 @@ CLASS zcl_spac108_master_loader DEFINITION
 ENDCLASS.
 
 
-CLASS zcl_spac108_master_loader IMPLEMENTATION.
+
+CLASS ZCL_SPAC108_MASTER_LOADER IMPLEMENTATION.
+
 
   METHOD if_oo_adt_classrun~main.
 
@@ -49,5 +51,4 @@ CLASS zcl_spac108_master_loader IMPLEMENTATION.
     out->write( |{ lv_products } produkter og { lv_warehouses } lagre indsat| ).
 
   ENDMETHOD.
-
 ENDCLASS.
