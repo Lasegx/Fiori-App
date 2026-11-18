@@ -18,11 +18,18 @@ authorization master ( global )
   field ( readonly ) LocalCreatedBy, LocalCreatedAt,
                      LocalLastChangedBy, LocalLastChangedAt, LastChangedAt;
 
+  validation ValidateAmount on save { create; update; field Amount; }
+  validation ValidateUnique on save { create; field WarehouseId, ProductId; }
+
   draft action Edit;
   draft action Activate optimized;
   draft action Discard;
   draft action Resume;
-  draft determine action Prepare;
+  draft determine action Prepare
+  {
+    validation ValidateAmount;
+    validation ValidateUnique;
+  }
 
   mapping for zspac108_stock
   {
