@@ -18,13 +18,19 @@ authorization master ( global )
   field ( readonly ) LocalCreatedBy, LocalCreatedAt,
                      LocalLastChangedBy, LocalLastChangedAt, LastChangedAt;
 
+  association _Stock { create; with draft; }
+
   draft action Edit;
   draft action Activate optimized;
   draft action Discard;
   draft action Resume;
-  draft determine action Prepare;
+  draft determine action Prepare
+  {
+    validation Stock~ValidateAmount;
+    validation Stock~ValidateUnique;
+  }
 
-   mapping for zspac108_wh
+  mapping for zspac108_wh
   {
     WarehouseId        = warehouse_id;
     WarehouseName      = warehouse_name;
@@ -37,5 +43,40 @@ authorization master ( global )
     LocalLastChangedAt = local_last_change_at;
     LastChangedAt      = last_change_at;
   }
+}
 
+define behavior for ZR_SPAC108_STOCK alias Stock
+implementation in class zbp_r_spac108_stock unique
+persistent table zspac108_stock
+draft table zspac108_stock_d
+etag master LocalLastChangedAt
+lock dependent by _Warehouse
+authorization dependent by _Warehouse
+{
+  update;
+  delete;
+
+  field ( readonly ) WarehouseId, LocalCreatedBy, LocalCreatedAt,
+                     LocalLastChangedBy, LocalLastChangedAt, LastChangedAt;
+  field ( mandatory : create ) ProductId;
+  field ( readonly : update )  ProductId;
+
+  association _Warehouse { with draft; }
+
+  side effects { field Amount affects messages; }
+
+  validation ValidateAmount on save { create; update; field Amount; }
+  validation ValidateUnique on save { create; field ProductId; }
+
+  mapping for zspac108_stock
+  {
+    WarehouseId        = warehouse_id;
+    ProductId          = product_id;
+    Amount             = amount;
+    LocalCreatedBy     = local_created_by;
+    LocalCreatedAt     = local_created_at;
+    LocalLastChangedBy = local_last_change_by;
+    LocalLastChangedAt = local_last_change_at;
+    LastChangedAt      = last_change_at;
+  }
 }

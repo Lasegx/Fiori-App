@@ -13,4 +13,14 @@ define behavior for ZC_SPAC108_WAREHOUSE alias Warehouse
   use action Discard;
   use action Resume;
   use action Prepare;
+
+  use association _Stock { create; with draft; }
+}
+
+define behavior for ZC_SPAC108_STOCK alias Stock
+{
+  use update;
+  use delete;
+
+  use association _Warehouse { with draft; }
 }

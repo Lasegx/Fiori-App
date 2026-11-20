@@ -5,47 +5,39 @@
   typeName: 'Stock entry',
   typeNamePlural: 'Stock'
 }
-define root view entity ZC_SPAC108_STOCK
-  provider contract transactional_query
+define view entity ZC_SPAC108_STOCK
   as projection on ZR_SPAC108_STOCK
 {
   @UI.facet: [{
     id: 'General', purpose: #STANDARD,
     type: #IDENTIFICATION_REFERENCE, label: 'Stock', position: 10
   }]
-  
+
   @EndUserText.label: 'Warehouse ID'
-  @UI.identification: [{ position: 10 }]
   key WarehouseId,
 
   @EndUserText.label: 'Product ID'
-  @UI.identification: [{ position: 20 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: { name: 'ZC_SPAC108_PRODUCT', element: 'ProductId' } }]
+  @UI.lineItem:       [{ position: 10 }]
+  @UI.identification: [{ position: 10 }]
   key ProductId,
 
-  @EndUserText.label: 'Warehouse'
-  @UI.lineItem: [{ position: 10 }]
-  _Warehouse.WarehouseName as WarehouseName,
-
-  @EndUserText.label: 'City'
-  @UI.lineItem: [{ position: 20 }]
-  _Warehouse.City          as City,
-
   @EndUserText.label: 'Product'
-  @UI.lineItem: [{ position: 30 }]
-  _Product.ProductName     as ProductName,
+  @UI.lineItem: [{ position: 20 }]
+  _Product.ProductName as ProductName,
 
   @EndUserText.label: 'Amount in stock'
-  @UI.lineItem: [{ position: 40 }]
-  @UI.identification: [{ position: 30 }]
+  @UI.lineItem:       [{ position: 30 }]
+  @UI.identification: [{ position: 20 }]
   Amount,
-  
+
   LocalCreatedBy,
   LocalCreatedAt,
   LocalLastChangedBy,
   LocalLastChangedAt,
   LastChangedAt,
 
-  _Product   : redirected to ZC_SPAC108_PRODUCT,
-  _Warehouse : redirected to ZC_SPAC108_WAREHOUSE
-
+  _Warehouse : redirected to parent ZC_SPAC108_WAREHOUSE,
+  _Product   : redirected to ZC_SPAC108_PRODUCT
 }

@@ -10,10 +10,12 @@ define root view entity ZC_SPAC108_WAREHOUSE
   provider contract transactional_query
   as projection on ZR_SPAC108_WAREHOUSE
 {
-  @UI.facet: [{
-    id: 'General', purpose: #STANDARD,
-    type: #IDENTIFICATION_REFERENCE, label: 'Warehouse', position: 10
-  }]
+  @UI.facet: [
+    { id: 'General', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE,
+      label: 'Warehouse', position: 10 },
+    { id: 'Stock', purpose: #STANDARD, type: #LINEITEM_REFERENCE,
+      label: 'Stock', position: 20, targetElement: '_Stock' }
+  ]
 
   @EndUserText.label: 'Warehouse ID'
   @UI.lineItem:       [{ position: 10 }]
@@ -44,5 +46,7 @@ define root view entity ZC_SPAC108_WAREHOUSE
   LocalCreatedAt,
   LocalLastChangedBy,
   LocalLastChangedAt,
-  LastChangedAt
+  LastChangedAt,
+
+  _Stock : redirected to composition child ZC_SPAC108_STOCK
 }

@@ -3,6 +3,7 @@
 @Metadata.ignorePropagatedAnnotations: true
 define root view entity ZR_SPAC108_WAREHOUSE
   as select from zspac108_wh
+  composition [0..*] of ZR_SPAC108_STOCK as _Stock
 {
   key warehouse_id   as WarehouseId,
       warehouse_name as WarehouseName,
@@ -23,5 +24,7 @@ define root view entity ZR_SPAC108_WAREHOUSE
       local_last_change_at as LocalLastChangedAt,
 
       @Semantics.systemDateTime.lastChangedAt: true
-      last_change_at as LastChangedAt
+      last_change_at as LastChangedAt,
+
+      _Stock
 }

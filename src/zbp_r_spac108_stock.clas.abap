@@ -2,7 +2,7 @@ CLASS zbp_r_spac108_stock DEFINITION
   PUBLIC
   ABSTRACT
   FINAL
-  FOR BEHAVIOR OF zr_spac108_stock.
+  FOR BEHAVIOR OF zr_spac108_warehouse.
 ENDCLASS.
 
 
