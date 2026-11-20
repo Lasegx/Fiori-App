@@ -45,6 +45,7 @@ define root view entity ZC_SPAC108_STOCK
   LocalLastChangedAt,
   LastChangedAt,
 
-  _Product,
-  _Warehouse
+  _Product   : redirected to ZC_SPAC108_PRODUCT,
+  _Warehouse : redirected to ZC_SPAC108_WAREHOUSE
+
 }
