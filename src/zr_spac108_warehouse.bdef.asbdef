@@ -28,6 +28,7 @@ authorization master ( global )
   {
     validation Stock~ValidateAmount;
     validation Stock~ValidateUnique;
+    validation Stock~ValidateProduct;
   }
 
   mapping for zspac108_wh
@@ -61,12 +62,13 @@ authorization dependent by _Warehouse
   field ( mandatory : create ) ProductId;
   field ( readonly : update )  ProductId;
 
-  association _Warehouse { with draft; }
+   association _Warehouse { with draft; }
 
-  side effects { field Amount affects messages; }
+  side effects { field Amount affects messages; field ProductId affects messages; }
 
   validation ValidateAmount on save { create; update; field Amount; }
   validation ValidateUnique on save { create; field ProductId; }
+  validation ValidateProduct on save { create; field ProductId; }
 
   mapping for zspac108_stock
   {
