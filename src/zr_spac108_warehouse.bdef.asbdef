@@ -20,6 +20,8 @@ authorization master ( global )
 
   association _Stock { create; with draft; }
 
+  action CreateProduct parameter ZA_SPAC108_NEW_PRODUCT;
+
   draft action Edit;
   draft action Activate optimized;
   draft action Discard;
@@ -62,12 +64,22 @@ authorization dependent by _Warehouse
   field ( mandatory : create ) ProductId;
   field ( readonly : update )  ProductId;
 
-   association _Warehouse { with draft; }
+  association _Warehouse { with draft; }
 
-  side effects { field Amount affects messages; field ProductId affects messages; }
+  determine action ValidateStock
+  {
+    validation ValidateAmount;
+    validation ValidateUnique;
+    validation ValidateProduct;
+  }
 
-  validation ValidateAmount on save { create; update; field Amount; }
-  validation ValidateUnique on save { create; field ProductId; }
+   side effects
+  {
+    determine action ValidateStock executed on field Amount, field ProductId affects messages;
+  }
+
+  validation ValidateAmount  on save { create; update; field Amount; }
+  validation ValidateUnique  on save { create; field ProductId; }
   validation ValidateProduct on save { create; field ProductId; }
 
   mapping for zspac108_stock

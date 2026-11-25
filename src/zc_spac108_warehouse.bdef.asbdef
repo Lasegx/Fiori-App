@@ -1,4 +1,4 @@
-projection;
+projection implementation in class zbp_c_spac108_warehouse unique;
 strict ( 2 );
 use draft;
 
@@ -13,6 +13,7 @@ define behavior for ZC_SPAC108_WAREHOUSE alias Warehouse
   use action Discard;
   use action Resume;
   use action Prepare;
+  use action CreateProduct;
 
   use association _Stock { create; with draft; }
 }
@@ -21,6 +22,8 @@ define behavior for ZC_SPAC108_STOCK alias Stock
 {
   use update;
   use delete;
+
+  use action ValidateStock;
 
   use association _Warehouse { with draft; }
 }

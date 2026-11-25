@@ -18,7 +18,8 @@ define view entity ZC_SPAC108_STOCK
 
   @EndUserText.label: 'Product ID'
   @Consumption.valueHelpDefinition: [{
-    entity: { name: 'ZC_SPAC108_PRODUCT', element: 'ProductId' } }]
+    entity: { name: 'ZC_SPAC108_PRODUCT', element: 'ProductId' },
+    useForValidation: true }]
   @UI.lineItem:       [{ position: 10 }]
   @UI.identification: [{ position: 10 }]
   key ProductId,
@@ -27,8 +28,16 @@ define view entity ZC_SPAC108_STOCK
   @UI.lineItem: [{ position: 20 }]
   _Product.ProductName as ProductName,
 
-  @EndUserText.label: 'Amount in stock'
-  @UI.lineItem:       [{ position: 30 }]
+    @EndUserText.label: 'Amount in stock'
+  @UI.dataPoint: {
+    title: 'Amount in stock',
+    criticalityCalculation: {
+      improvementDirection: #MAXIMIZE,
+      deviationRangeLowValue: 10,
+      toleranceRangeLowValue: 50
+    }
+  }
+  @UI.lineItem:       [{ position: 30, type: #AS_DATAPOINT }]
   @UI.identification: [{ position: 20 }]
   Amount,
 

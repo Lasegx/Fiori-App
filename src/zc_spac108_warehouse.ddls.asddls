@@ -14,12 +14,16 @@ define root view entity ZC_SPAC108_WAREHOUSE
     { id: 'General', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE,
       label: 'Warehouse', position: 10 },
     { id: 'Stock', purpose: #STANDARD, type: #LINEITEM_REFERENCE,
-      label: 'Stock', position: 20, targetElement: '_Stock' }
+      label: 'Stock', position: 20, targetElement: '_Stock' },
+    { id: 'Product', purpose: #STANDARD, type: #LINEITEM_REFERENCE,
+      label: 'Product', position: 30, targetElement: '_AllProducts' } 
   ]
 
-  @EndUserText.label: 'Warehouse ID'
+    @EndUserText.label: 'Warehouse ID'
   @UI.lineItem:       [{ position: 10 }]
-  @UI.identification: [{ position: 10 }]
+  @UI.identification: [{ position: 10 },
+                       { type: #FOR_ACTION, dataAction: 'CreateProduct',
+                         label: 'Ny vare', position: 90 }]
   key WarehouseId,
 
   @EndUserText.label: 'Name'
@@ -48,5 +52,7 @@ define root view entity ZC_SPAC108_WAREHOUSE
   LocalLastChangedAt,
   LastChangedAt,
 
-  _Stock : redirected to composition child ZC_SPAC108_STOCK
+  _Stock       : redirected to composition child ZC_SPAC108_STOCK,
+  _AllProducts : redirected to ZC_SPAC108_PRODUCT
 }
+

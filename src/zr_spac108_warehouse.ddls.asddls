@@ -3,7 +3,9 @@
 @Metadata.ignorePropagatedAnnotations: true
 define root view entity ZR_SPAC108_WAREHOUSE
   as select from zspac108_wh
-  composition [0..*] of ZR_SPAC108_STOCK as _Stock
+    composition [0..*] of ZR_SPAC108_STOCK as _Stock
+    association [0..*] to ZR_SPAC108_PRODUCT as _AllProducts
+    on $projection.WarehouseId >= 0 and _AllProducts.ProductId >= 0
 {
   key warehouse_id   as WarehouseId,
       warehouse_name as WarehouseName,
@@ -26,5 +28,7 @@ define root view entity ZR_SPAC108_WAREHOUSE
       @Semantics.systemDateTime.lastChangedAt: true
       last_change_at as LastChangedAt,
 
-      _Stock
+      _Stock,
+      _AllProducts
+
 }
